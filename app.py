@@ -9,6 +9,7 @@ from flask import (
 )
 
 import sqlite3
+import os
 from functools import wraps
 from datetime import datetime
 
@@ -19,9 +20,12 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-app.secret_key = "change-this-secret-key"
+app.secret_key = os.environ.get("SECRET_KEY", "change-this-secret-key")
 
-DB = "cybersecurity.db"
+if os.environ.get("VERCEL"):
+    DB = "/tmp/cybersecurity.db"
+else:
+    DB = os.path.join(app.root_path, "cybersecurity.db")
 
 
 # =========================================================
@@ -514,6 +518,10 @@ def init_db():
 
     c.commit()
     c.close()
+
+
+# Initialize the database when the app is imported (required by Vercel).
+init_db()
 
 
 # =========================================================
@@ -1436,8 +1444,6 @@ def logout():
 # =========================================================
 
 if __name__ == "__main__":
-
-    init_db()
 
     app.run(
         debug=True
