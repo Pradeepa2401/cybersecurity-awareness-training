@@ -1,15 +1,32 @@
 # Cybersecurity Awareness Training Platform
-Flask + SQLite Software Engineering project.
 
-Student: Login -> Courses -> Quiz -> Result -> Certificate
-Trainer: Login -> Training content -> Student results
-Admin: Login -> Users -> Courses -> Reports
+A Flask + SQLite Software Engineering project for cybersecurity awareness training.
 
-Run:
+## Project Overview
+
+The Cybersecurity Awareness Training Platform provides different features based on the user's role.
+
+### Student
+Login → Courses → Quiz → Result → Certificate
+
+### Trainer
+Login → Training Content → Student Results
+
+### Admin
+Login → Users → Courses → Reports
+
+## Technologies Used
+
+- Python
+- Flask
+- SQLite
+- HTML
+- CSS
+- JavaScript
+
+## How to Run
+
+### 1. Create a Virtual Environment
+
+```bash
 python -m venv .venv
-python -m pip install -r requirements.txt
-python app.py
-
-Open http://127.0.0.1:5000
-
-This is an educational demo. Production should add secure authentication, password hashing, CSRF protection and secure secret management.
