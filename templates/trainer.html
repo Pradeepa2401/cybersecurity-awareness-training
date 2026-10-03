@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Trainer Panel{% endblock %}
+
+{% block content %}
+
+<div class="head">
+    <div>
+        <small>TRAINER PANEL</small>
+        <h1>Manage Cybersecurity Training</h1>
+        <p class="muted">
+            Add new quiz questions or remove existing questions from the student quiz bank.
+        </p>
+    </div>
+</div>
+
+<section class="card">
+    <h2>📚 Courses</h2>
+    <p class="muted">
+        These are the cybersecurity courses available to students.
+    </p>
+
+    {% for title, description in courses %}
+        <div class="list">
+            <div>
+                <b>Course {{ loop.index }}: {{ title }}</b>
+                <span>{{ description }}</span>
+            </div>
+        </div>
+    {% else %}
+        <p class="muted">No courses available.</p>
+    {% endfor %}
+</section>
+
+<section class="card">
+    <h2>➕ Add Quiz Question</h2>
+    <p class="muted">
+        Add a new multiple-choice question to a student quiz.
+    </p>
+
+    <form
+        method="POST"
+        action="{{ url_for('trainer_add_question') }}"
+        style="margin-top:20px;"
+    >
+        <label for="course">Course</label>
+        <select id="course" name="course" required>
+            <option value="" selected disabled>Select a course</option>
+            {% for title, description in courses %}
+                <option value="{{ title }}">{{ title }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="question">Question</label>
+        <textarea
+            id="question"
+            name="question"
+            rows="3"
+            placeholder="Enter the quiz question"
+            required
+        ></textarea>
+
+        <label for="correct_answer">Correct Answer</label>
+        <input
+            id="correct_answer"
+            type="text"
+            name="correct_answer"
+            placeholder="Enter the correct answer"
+            required
+        >
+
+        <label for="wrong_answer1">Wrong Answer 1</label>
+        <input
+            id="wrong_answer1"
+            type="text"
+            name="wrong_answer1"
+            placeholder="Enter a wrong answer"
+            required
+        >
+
+        <label for="wrong_answer2">Wrong Answer 2</label>
+        <input
+            id="wrong_answer2"
+            type="text"
+            name="wrong_answer2"
+            placeholder="Enter a wrong answer"
+            required
+        >
+
+        <label for="wrong_answer3">Wrong Answer 3</label>
+        <input
+            id="wrong_answer3"
+            type="text"
+            name="wrong_answer3"
+            placeholder="Enter a wrong answer"
+            required
+        >
+
+        <div style="margin-top:20px;">
+            <button type="submit" class="btn primary">
+                ➕ Add Question
+            </button>
+        </div>
+    </form>
+</section>
+
+<section class="card">
+    <h2>❓ Quiz Bank</h2>
+    <p class="muted">
+        Questions currently available in student quizzes.
+    </p>
+
+    {% for q in questions %}
+        <div class="list">
+            <div style="width:100%;">
+                <small>{{ q["course"] }}</small>
+
+                <b style="display:block; margin-top:5px;">
+                    {{ loop.index }}. {{ q["question"] }}
+                </b>
+
+                <span style="display:block; margin-top:8px;">
+                    <strong>Correct answer:</strong>
+                    {{ q["correct_answer"] }}
+                </span>
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for('trainer_delete_question', question_id=q['id']) }}"
+                onsubmit="return confirm('Remove this quiz question?');"
+                style="margin-left:20px;"
+            >
+                <button type="submit" class="btn secondary">
+                    🗑️ Remove
+                </button>
+            </form>
+        </div>
+    {% else %}
+        <p class="muted">No quiz questions available.</p>
+    {% endfor %}
+</section>
+
+<div style="margin-top:20px;">
+    <a class="btn secondary" href="{{ url_for('dashboard') }}">
+        ← Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

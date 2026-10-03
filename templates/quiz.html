@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+
+<div class="head">
+    <div>
+        <small>KNOWLEDGE ASSESSMENT</small>
+
+        <h1>{{ course_title }} Quiz</h1>
+
+        <p class="muted">
+            Choose one answer for each question.
+        </p>
+    </div>
+</div>
+
+<form method="post" id="quizForm">
+
+    <div id="quizMessage" class="status warning" style="display: none;">
+        ⚠️ Please answer all questions before submitting the quiz.
+    </div>
+
+    {% for q in questions %}
+
+        {% set question_index = loop.index0 %}
+
+        <section class="quiz">
+
+            <small>
+                QUESTION {{ loop.index }}
+            </small>
+
+            <h2>
+                {{ q[0] }}
+            </h2>
+
+            {% for opt in [q[1]] + q[2] %}
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="q{{ question_index }}"
+                        value="{{ opt }}"
+                    >
+
+                    <span>
+                        {{ opt }}
+                    </span>
+
+                </label>
+
+            {% endfor %}
+
+        </section>
+
+    {% endfor %}
+
+    <button
+        class="btn primary"
+        type="submit"
+        id="submitQuiz"
+    >
+        Submit {{ course_title }} Quiz →
+    </button>
+
+</form>
+
+
+<script>
+
+document.getElementById("quizForm").addEventListener("submit", function(event) {
+
+    const questions = document.querySelectorAll(".quiz");
+    let unanswered = [];
+
+    questions.forEach(function(question, index) {
+
+        const selected = question.querySelector(
+            'input[type="radio"]:checked'
+        );
+
+        if (!selected) {
+            unanswered.push(index + 1);
+        }
+
+    });
+
+    if (unanswered.length > 0) {
+
+        event.preventDefault();
+
+        const message = document.getElementById("quizMessage");
+
+        message.style.display = "block";
+
+        message.innerHTML =
+            "⚠️ Please answer all questions before submitting the quiz." +
+            "<br><strong>Unanswered question(s): " +
+            unanswered.join(", ") +
+            "</strong>";
+
+        message.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

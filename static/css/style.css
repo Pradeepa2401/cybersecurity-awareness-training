@@ -1,0 +1,875 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --ink: #172033;
+    --muted: #697386;
+    --line: #e6eaf0;
+
+    --bg-dark: #06182b;
+    --bg-mid: #092d45;
+    --bg-blue: #0d5368;
+
+    --primary: #315efb;
+    --dark: #2346c4;
+
+    --card: #ffffff;
+    --success: #138a5a;
+
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.20);
+}
+
+/* =========================
+   FULL PAGE BACKGROUND
+   ========================= */
+
+html {
+    min-height: 100%;
+
+    background: linear-gradient(
+        110deg,
+        #06182b 0%,
+        #092d45 45%,
+        #0d5368 100%
+    );
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background: linear-gradient(
+        110deg,
+        #06182b 0%,
+        #092d45 45%,
+        #0d5368 100%
+    );
+
+    background-attachment: fixed;
+
+    color: #ffffff;
+
+    font: 15px/1.6 Inter, Segoe UI, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+header {
+    height: 72px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-bottom: 1px solid var(--line);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    position: sticky;
+    top: 0;
+    z-index: 5;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.brand {
+    font-weight: 800;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    color: var(--ink);
+}
+
+.brand b,
+.cert-logo {
+    background: var(--primary);
+    color: #ffffff;
+
+    border-radius: 11px;
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    color: #556174;
+
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+.pill {
+    background: #edf1ff;
+    color: #2949b6;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* =========================
+   MAIN
+   ========================= */
+
+main {
+    width: min(1120px, 90%);
+
+    margin: auto;
+
+    padding: 48px 0 75px;
+}
+
+/* =========================
+   LOGIN / AUTH PAGE
+   ========================= */
+
+.auth {
+    min-height: calc(100vh - 180px);
+
+    display: grid;
+
+    grid-template-columns: 1.2fr 0.8fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+.auth h1 {
+    font-size: 62px;
+
+    line-height: 1.02;
+
+    letter-spacing: -2.5px;
+
+    max-width: 650px;
+
+    margin: 12px 0;
+
+    color: #ffffff;
+}
+
+.auth p {
+    font-size: 19px;
+
+    color: rgba(255, 255, 255, 0.78);
+
+    max-width: 600px;
+}
+
+small {
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+
+    color: var(--primary);
+
+    font-size: 11px;
+}
+
+/* =========================
+   LOGIN PAGE
+   ========================= */
+
+.login-page {
+    min-height: calc(100vh - 72px);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background: transparent;
+}
+
+.login-box {
+    width: 360px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    color: var(--ink);
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
+
+    text-align: center;
+}
+
+.login-box h1 {
+    margin: 0 0 8px;
+
+    color: var(--ink);
+
+    font-size: 28px;
+}
+
+.login-box p {
+    margin: 0 0 25px;
+
+    color: #667085;
+}
+
+.login-box input,
+.login-box select {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    background: #ffffff;
+
+    color: var(--ink);
+}
+
+.login-box input:focus,
+.login-box select:focus {
+    outline: none;
+
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(49, 94, 251, 0.12);
+}
+
+.login-box button {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background: var(--dark);
+}
+
+/* =========================
+   CARDS
+   ========================= */
+
+.card,
+.course,
+.quiz,
+.result,
+.stats > div,
+.certificate {
+    background: rgba(255, 255, 255, 0.97);
+
+    color: var(--ink);
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    border-radius: 18px;
+
+    box-shadow: var(--shadow);
+}
+
+.card {
+    padding: 28px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.logo {
+    font-size: 25px;
+
+    background: #edf1ff;
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 15px;
+
+    display: grid;
+    place-items: center;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+/* =========================
+   FORMS
+   ========================= */
+
+label {
+    display: block;
+
+    font-weight: 700;
+
+    margin: 16px 0 7px;
+}
+
+input,
+select {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #d9dfe8;
+
+    border-radius: 11px;
+
+    font: inherit;
+
+    background: #ffffff;
+
+    color: var(--ink);
+}
+
+input:focus,
+select:focus {
+    outline: none;
+
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(49, 94, 251, 0.10);
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+.btn {
+    display: inline-flex;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    padding: 11px 17px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    justify-content: center;
+}
+
+.primary {
+    background: var(--primary);
+
+    color: #ffffff;
+}
+
+.primary:hover {
+    background: var(--dark);
+}
+
+.secondary {
+    background: #edf1ff;
+
+    color: #284ab8;
+}
+
+.secondary:hover {
+    background: #dfe6ff;
+}
+
+.card .btn {
+    margin-top: 18px;
+}
+
+/* =========================
+   PAGE HEADINGS
+   ========================= */
+
+.head {
+    margin-bottom: 28px;
+}
+
+.head h1 {
+    font-size: 38px;
+
+    letter-spacing: -1px;
+
+    margin: 4px 0;
+
+    color: #ffffff;
+}
+
+.head .muted {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================
+   STATISTICS
+   ========================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+}
+
+.stats > div {
+    padding: 22px;
+}
+
+.stats span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.stats b {
+    font-size: 32px;
+}
+
+/* =========================
+   GRID
+   ========================= */
+
+.grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+}
+
+.grid.two {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* =========================
+   COURSES
+   ========================= */
+
+.courses {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+}
+
+.course {
+    padding: 24px;
+
+    display: flex;
+
+    gap: 18px;
+}
+
+.course i {
+    background: #edf1ff;
+
+    color: var(--primary);
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 12px;
+
+    display: grid;
+    place-items: center;
+
+    font-style: normal;
+
+    font-weight: 900;
+
+    flex: none;
+}
+
+.course h2 {
+    margin: 5px 0;
+}
+
+.course p {
+    color: var(--muted);
+}
+
+.done {
+    color: var(--success);
+
+    font-weight: 800;
+}
+
+/* =========================
+   DARK STRIP
+   ========================= */
+
+.strip {
+    margin-top: 20px;
+
+    background: rgba(23, 32, 51, 0.95);
+
+    color: #ffffff;
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.strip .btn {
+    margin-left: auto;
+}
+
+/* =========================
+   QUIZ
+   ========================= */
+
+.quiz {
+    padding: 25px;
+
+    margin-bottom: 16px;
+}
+
+.quiz h2 {
+    font-size: 20px;
+}
+
+.option {
+    margin: 9px 0;
+}
+
+.option input {
+    display: none;
+}
+
+.option span {
+    display: block;
+
+    border: 1px solid var(--line);
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+
+    font-weight: 500;
+
+    background: #ffffff;
+
+    color: var(--ink);
+
+    cursor: pointer;
+}
+
+.option span:hover {
+    border-color: var(--primary);
+}
+
+.option input:checked + span {
+    border-color: var(--primary);
+
+    background: #edf1ff;
+
+    color: #2345b7;
+
+    font-weight: 700;
+}
+
+/* =========================
+   RESULT
+   ========================= */
+
+.result {
+    max-width: 700px;
+
+    margin: 35px auto;
+
+    text-align: center;
+
+    padding: 55px;
+}
+
+.result h1 {
+    font-size: 40px;
+}
+
+.score {
+    font-size: 88px;
+
+    color: var(--primary);
+
+    font-weight: 900;
+
+    line-height: 1;
+}
+
+.status {
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin: 22px;
+}
+
+.success {
+    background: #eaf8f1;
+
+    color: #0c754b;
+}
+
+.warning {
+    background: #fff4da;
+
+    color: #815500;
+}
+
+/* =========================
+   CERTIFICATE
+   ========================= */
+
+.certificate {
+    padding: 12px;
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.cert-inner {
+    border: 7px double #ccd4e1;
+
+    min-height: 500px;
+
+    text-align: center;
+
+    padding: 65px 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.cert-inner h1 {
+    font-size: 48px;
+}
+
+.cert-inner h2 {
+    font-size: 36px;
+
+    color: var(--primary);
+}
+
+.cert-meta {
+    display: flex;
+
+    justify-content: space-between;
+
+    width: 100%;
+
+    margin-top: 50px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+/* =========================
+   LISTS
+   ========================= */
+
+.list {
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--line);
+
+    color: var(--ink);
+}
+
+.list span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+/* =========================
+   TABLE
+   ========================= */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: left;
+
+    padding: 12px;
+
+    border-bottom: 1px solid var(--line);
+
+    color: var(--ink);
+}
+
+th {
+    background: #f7f9fc;
+}
+
+/* =========================
+   ALERTS
+   ========================= */
+
+.alert {
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-bottom: 15px;
+}
+
+.alert.error {
+    background: #fff0f0;
+
+    color: #a33;
+}
+
+.alert.success {
+    background: #eaf8f1;
+
+    color: #075;
+}
+
+/* =========================
+   CENTER
+   ========================= */
+
+.center {
+    text-align: center;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+    text-align: center;
+
+    padding: 24px;
+
+    background: transparent;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 12px;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 850px) {
+
+    .auth,
+    .grid,
+    .grid.two,
+    .stats,
+    .courses {
+        grid-template-columns: 1fr;
+    }
+
+    .auth h1 {
+        font-size: 44px;
+    }
+
+    .strip {
+        flex-wrap: wrap;
+    }
+
+    .strip .btn {
+        margin-left: 0;
+    }
+
+    nav {
+        gap: 9px;
+    }
+
+    nav a {
+        display: none;
+    }
+
+    .cert-inner h1 {
+        font-size: 34px;
+    }
+
+    .cert-meta {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    .login-box {
+        width: 100%;
+
+        max-width: 360px;
+    }
+}

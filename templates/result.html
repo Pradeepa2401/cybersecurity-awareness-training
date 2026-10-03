@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Result{% endblock %}
+
+{% block content %}
+
+<section class="result">
+
+    {% if result %}
+
+        {% set score = result["score"] %}
+        {% set total = result["total"] %}
+        {% set percentage = (score * 100 / total) | round | int %}
+
+        <small>ASSESSMENT COMPLETE</small>
+
+        <h1>Your Result</h1>
+
+        <div class="score">
+            {{ percentage }}%
+        </div>
+
+        <p>
+            {{ score }} / {{ total }} correct answers
+        </p>
+
+
+        <!-- ============================= -->
+        <!-- PASSED: 60% OR ABOVE          -->
+        <!-- ============================= -->
+
+        {% if percentage >= 60 %}
+
+            <div class="status success">
+                Passed — congratulations!
+                You have achieved the required score.
+            </div>
+
+            <div class="result-actions">
+
+                <a
+                    class="btn primary"
+                    href="{{ url_for('certificate') }}"
+                >
+                    🎓 View Certificate
+                </a>
+
+                <a
+                    class="btn secondary"
+                    href="{{ url_for('courses') }}"
+                >
+                    📚 Back to Courses
+                </a>
+
+            </div>
+
+
+        <!-- ============================= -->
+        <!-- FAILED: BELOW 60%             -->
+        <!-- ============================= -->
+
+        {% else %}
+
+            <div class="status warning">
+                Not passed.
+
+                You need at least
+                <strong>60%</strong>
+                to receive a certificate.
+            </div>
+
+            <div class="result-actions">
+
+                <a
+                    class="btn primary"
+                    href="{{ url_for('courses') }}"
+                >
+                    📚 Review Learning Material
+                </a>
+
+                <a
+                    class="btn secondary"
+                    href="{{ url_for('courses') }}"
+                >
+                    🔄 Retry Quiz
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+    {% else %}
+
+        <h1>No Result Yet</h1>
+
+        <p class="muted">
+            Complete a quiz to see your result.
+        </p>
+
+        <a
+            class="btn primary"
+            href="{{ url_for('courses') }}"
+        >
+            Go to Courses
+        </a>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

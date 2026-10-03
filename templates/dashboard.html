@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="head">
+    <div>
+        <small>{{ user["role"]|upper }} DASHBOARD</small>
+        <h1>Welcome, {{ user["name"] }}</h1>
+        <p class="muted">Your cybersecurity awareness workspace.</p>
+    </div>
+</div>
+
+{% if user["role"] == "Student" %}
+
+<div class="stats">
+    <div>
+        <span>Courses completed</span>
+        <b>{{ completed }}/{{ total_courses }}</b>
+    </div>
+
+    <div>
+        <span>Quiz attempts</span>
+        <b>{{ attempts }}</b>
+    </div>
+
+    <div>
+        <span>Latest score</span>
+        <b>
+            {% if result %}
+                {{ ((result["score"] / result["total"]) * 100)|round|int }}%
+            {% else %}
+                —
+            {% endif %}
+        </b>
+    </div>
+</div>
+
+<div class="grid">
+
+    <div class="card">
+        <h2>Continue Learning</h2>
+        <p>Study cybersecurity topics and complete your awareness training.</p>
+        <a class="btn primary" href="{{ url_for('courses') }}">
+            Explore Courses
+        </a>
+    </div>
+
+    <div class="card">
+        <h2>Knowledge Check</h2>
+        <p>Choose a course and take its topic-specific quiz.</p>
+        <a class="btn secondary" href="{{ url_for('courses') }}">
+            Choose a Quiz
+        </a>
+    </div>
+
+    <div class="card">
+        <h2>Certificate</h2>
+        <p>View your latest assessment certificate.</p>
+        <a class="btn secondary" href="{{ url_for('certificate') }}">
+            View Certificate
+        </a>
+    </div>
+
+</div>
+
+{% elif user["role"] == "Trainer" %}
+
+<div class="grid">
+
+    <div class="card">
+        <h2>Training Content</h2>
+        <p>Review courses and manage quiz questions for learners.</p>
+        <a class="btn primary" href="{{ url_for('trainer') }}">
+            Open Trainer Panel
+        </a>
+    </div>
+
+    <div class="card">
+        <h2>Student Performance</h2>
+        <p>View recent student assessment results.</p>
+        <a class="btn secondary" href="{{ url_for('trainer_results') }}">
+            View Results
+        </a>
+    </div>
+
+</div>
+
+{% elif user["role"] == "Admin" %}
+
+<div class="grid">
+
+    <div class="card">
+        <h2>System Management</h2>
+        <p>Review users, courses and assessment activity.</p>
+        <a class="btn primary" href="{{ url_for('admin') }}">
+            Open Admin Panel
+        </a>
+    </div>
+
+    <div class="card">
+        <h2>Platform Overview</h2>
+        <p>Monitor the overall training platform.</p>
+        <a class="btn secondary" href="{{ url_for('admin_overview') }}">
+            View Overview
+        </a>
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

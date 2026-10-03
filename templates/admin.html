@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}User Management{% endblock %}
+
+{% block content %}
+
+<div class="head">
+    <div>
+        <small>ADMINISTRATION</small>
+        <h1>User management</h1>
+        <p class="muted">View registered users and their roles.</p>
+    </div>
+</div>
+
+<section class="card">
+    <h2>👥 Registered Users</h2>
+    <p class="muted">Review the users registered on the CyberGuard Training platform.</p>
+
+    <div style="overflow-x:auto; margin-top:20px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td><b>{{ user["name"] }}</b></td>
+                    <td>
+                        <span class="status">{{ user["role"] }}</span>
+                    </td>
+                    <td>{{ user["created_at"] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">
+                        <p class="muted">No registered users found.</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div style="margin-top:20px;">
+    <a class="btn secondary" href="{{ url_for('dashboard') }}">
+        ← Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

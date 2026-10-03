@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+
+<div class="head">
+    <div>
+        <small>LEARNING LIBRARY</small>
+        <h1>Cybersecurity courses</h1>
+        <p class="muted">
+            Build practical cybersecurity awareness one topic at a time.
+        </p>
+    </div>
+</div>
+
+
+<div class="courses">
+
+    {% for title, desc in courses %}
+
+    <article class="course">
+
+        <i>{{ loop.index }}</i>
+
+        <div>
+
+            <small>
+                COURSE {{ "%02d"|format(loop.index) }}
+            </small>
+
+            <h2>{{ title }}</h2>
+
+            <p>{{ desc }}</p>
+
+
+            <!-- Learning Material -->
+
+            <div class="material">
+
+                <h3>📚 Learning Material</h3>
+
+                {% if title == "Password Security" %}
+
+                    <ul>
+                        <li>Use long and unique passwords.</li>
+                        <li>Do not reuse the same password for important accounts.</li>
+                        <li>Never share your passwords with other people.</li>
+                        <li>Use multi-factor authentication when available.</li>
+                    </ul>
+
+                {% elif title == "Phishing Awareness" %}
+
+                    <ul>
+                        <li>Phishing messages often try to create urgency.</li>
+                        <li>Check the sender before responding.</li>
+                        <li>Be careful with unexpected links and attachments.</li>
+                        <li>Verify unusual requests through a trusted channel.</li>
+                    </ul>
+
+                {% elif title == "Safe Internet Practices" %}
+
+                    <ul>
+                        <li>Keep your browser and software updated.</li>
+                        <li>Download applications from trusted sources.</li>
+                        <li>Check website addresses before entering information.</li>
+                        <li>Be careful when using public Wi-Fi.</li>
+                    </ul>
+
+                {% elif title == "Social Media Safety" %}
+
+                    <ul>
+                        <li>Review your privacy settings regularly.</li>
+                        <li>Avoid publicly sharing sensitive personal information.</li>
+                        <li>Be careful when accepting requests from unfamiliar accounts.</li>
+                        <li>Use strong security settings for your accounts.</li>
+                    </ul>
+
+                {% elif title == "Social Engineering Awareness" %}
+
+                    <ul>
+                        <li>Social engineering uses manipulation to influence people.</li>
+                        <li>Be cautious of unexpected requests for confidential information.</li>
+                        <li>Urgent requests should be independently verified.</li>
+                        <li>Pause and think before responding to unusual requests.</li>
+                    </ul>
+
+                {% elif title == "Mobile & Device Security" %}
+
+                    <ul>
+                        <li>Keep your device software updated.</li>
+                        <li>Use a screen lock.</li>
+                        <li>Install applications from trusted sources.</li>
+                        <li>Review application permissions.</li>
+                        <li>Keep backups of important information.</li>
+                    </ul>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Complete Course -->
+
+            {% if progress.get(title) %}
+
+                <span class="done">
+                    ✓ Completed
+                </span>
+
+            {% else %}
+
+                <form
+                    method="post"
+                    action="{{ url_for('complete_course', index=loop.index0) }}"
+                >
+                    <button
+                        class="btn secondary"
+                        type="submit"
+                    >
+                        Mark lesson complete
+                    </button>
+                </form>
+
+            {% endif %}
+
+
+            <!-- Topic Quiz -->
+
+            <div class="quiz-link">
+
+                <a
+                    class="btn primary"
+                    href="{{ url_for('quiz', index=loop.index0) }}"
+                >
+                    Start {{ title }} Quiz →
+                </a>
+
+            </div>
+
+        </div>
+
+    </article>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

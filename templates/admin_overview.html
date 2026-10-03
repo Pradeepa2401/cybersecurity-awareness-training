@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Platform Overview{% endblock %}
+
+{% block content %}
+
+<div class="head">
+    <div>
+        <small>ADMINISTRATION</small>
+        <h1>Platform Overview</h1>
+        <p class="muted">
+            Monitor overall platform activity and assessment performance.
+        </p>
+    </div>
+</div>
+
+<div class="stats">
+
+    <div>
+        <span>Registered users</span>
+        <b>{{ users|length }}</b>
+    </div>
+
+    <div>
+        <span>Courses</span>
+        <b>{{ courses|length }}</b>
+    </div>
+
+    <div>
+        <span>Quiz attempts</span>
+        <b>{{ total_attempts }}</b>
+    </div>
+
+</div>
+
+<section class="card">
+
+    <h2>Assessment Activity</h2>
+
+    <p class="muted">
+        Review recent student assessment activity.
+    </p>
+
+    <div style="overflow-x:auto; margin-top:20px;">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Score</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for r in results %}
+
+                    {% set percentage = ((r["score"] / r["total"]) * 100)|round|int %}
+
+                    <tr>
+                        <td><b>{{ r["name"] }}</b></td>
+                        <td>{{ r["score"] }}/{{ r["total"] }}</td>
+                        <td><b>{{ percentage }}%</b></td>
+                        <td>
+                            {% if percentage >= 60 %}
+                                <span class="done">✓ Passed</span>
+                            {% else %}
+                                <span class="status warning">Failed</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ r["created_at"] }}</td>
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+                        <td colspan="5">
+                            <p class="muted">No assessment activity available yet.</p>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
+
+<div style="margin-top:20px;">
+    <a class="btn secondary" href="{{ url_for('dashboard') }}">
+        ← Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}
